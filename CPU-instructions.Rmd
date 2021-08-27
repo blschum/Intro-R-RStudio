@@ -1,0 +1,81 @@
+---
+title: "Prepare CPU for CAS tidyverse() workshop"
+author: "Britta Schumacher"
+date: "Last updated: `r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    theme: yeti
+    toc: yes
+    toc_float: true
+    code_folding: hide
+---
+
+*FIRST*: Many thanks to Tom Edwards' instructions prepared for his WILD course 'Species Distribution & Habitat Modeling' which helped immensely in preparing this document.
+
+*SECOND*: To see the code chunks in this document (you'll wanna do this as there is code you need to copy and paste into R/RStudio!), go to the upper right hand drop down menu "Code" and select "Show all code".
+
+# Step #1 – Access and Install R
+
+If you do not already have R installed on your CPU, follow this [link](https://www.r-project.org/), which will take you to **The R Project for Statistical Computing** home page.
+
+
+### Which R Version to Install
+I am working with R version 3.6.3. So I can't make any promises about how all of this code will work with newer (R-4.0.4, R-4.0.5), or older versions. Having multiple versions of R installed on the same CPU is perfectly fine, so I recommend you download 3.6.3 so we are all using the same interface.
+
+For Windows users:
+
+* Click [here](https://cran.r-project.org/bin/windows/base/old/3.6.3/) to access the R-3.6.3 CRAN.
+    + Next, click **Download R 3.6.3 for Windows**, which will download the R-3.6.3-win.exe file for installation; run the downloaded EXE and follow the GUIs prompted in the download.
+
+For MAC OS users:
+
+* Click [here](https://cloud.r-project.org/bin/macosx/) to access the MAC OS CRAN site and carefully read the guidance.
+    + Scroll down until you find **Binaries for legacy OS X systems**, then click the **R–3.6.3.nn.pkg (signed)** link to download; run the downloaded EXE and follow the GUIs prompted in the download.
+
+### Check the R Version
+Once R has been installed, open R, and copy, paste, and run the code below in the console. It will return whichever version of R you install. 
+
+```{r}
+# check R version after install of R
+print(paste("R", getRversion())) # obtain current R version if not known
+```
+
+
+# Step #2 – Access and Install RStudio
+[RStudio](https://rstudio.com/) is an *INCREDIBLE* interface; it allows for traditional inline coding (via .R scripts), but also has flexibility for creating documents like **this** (The HTML you’re now reading is a RMarkdown document.) using [RMarkdown](https://rmarkdown.rstudio.com/lesson-1.html) which are great tools for communicating science and tracking code/project progression.
+
+### Which Version of RStudio to Install
+Access RStudio [here](https://rstudio.com/products/rstudio/download/#download).
+
+Scroll down to "All Installers" and select the appropriate version for your CPU OS (Mac v. Windows) and download; run the downloaded EXE and follow the GUIs prompted in the download.
+
+# Step #3 – Reboot Your CPU
+Rebooting at this point is recommended; it'll give your CPU a chance to uhm... "notice" that you've fed it something new.
+
+# Step # 4 - Installation of Rtools() and R Package devtools()
+The next step are *only* relevant to Windows systems. If you are using a MAC skip this section and head to **Step #5, Install the tidyverse()**
+
+### Which Version of Rtools to Install
+Because we are using R-3.6.3 you MUST install [Rtools Rtools35.exe](https://cran.r-project.org/bin/windows/Rtools/history.html); run the downloaded EXE and follow the GUIs prompted in the download.
+
+### Install Package devtools()
+Open RStudio and run the code below to install devtools().
+```{r eval= FALSE}
+# install package devtools
+install.packages("devtools", dependencies = T, 
+    repos = "https://cloud.r-project.org/")
+```
+
+Run the code below to determine if devtools() links with Rtools(). A response of *TRUE* indicates Rtools() is operational.
+```{r message = FALSE, warning = FALSE}
+# load library devtools and test for Rtools
+devtools::find_rtools() # returns TRUE if Rtools if operational
+```
+
+# Step #5 - Install the tidyverse()
+```{r eval = FALSE}
+# begin with installation of the tidyverse world
+install.packages(c("tidyverse","rmarkdown"), dependencies = T)
+```
+
+The tidyverse() is the bread and butter of data tidying, cleaning, organizing, manipulating, etc. It's a toolkit designed for data science where the packages contained within the tidyverse() share an underlying philosophy, grammar, and data structures that help streamline data manipulation and visualization. Read more about this incredible toolkit [here](https://www.tidyverse.org/)! And rmarkdown() will allow you to translate your science into human readable files with code AND text!
