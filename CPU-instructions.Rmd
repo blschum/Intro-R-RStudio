@@ -42,7 +42,7 @@ print(paste("R", getRversion())) # obtain current R version if not known
 
 
 # Step #2 – Access and Install RStudio
-[RStudio](https://rstudio.com/) is an *INCREDIBLE* interface; it allows for traditional inline coding (via .R scripts), but also has flexibility for creating documents like **this** (The HTML you’re now reading is a RMarkdown document.) using [RMarkdown](https://rmarkdown.rstudio.com/lesson-1.html) which are great tools for communicating science and tracking code/project progression.
+[RStudio](https://rstudio.com/) is an *INCREDIBLE* interface; it allows for traditional inline coding (via .R scripts), but also has flexibility for creating documents like **this** (The HTML you are reading right now is a RMarkdown document.) using [RMarkdown](https://rmarkdown.rstudio.com/lesson-1.html) which are great tools for communicating science and tracking code/project progression.
 
 ### Which Version of RStudio to Install
 Access RStudio [here](https://rstudio.com/products/rstudio/download/#download).

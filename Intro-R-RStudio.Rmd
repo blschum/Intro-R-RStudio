@@ -1,0 +1,113 @@
+---
+title: "Intro-R-Rstudio"
+author: "Britta Schumacher"
+date: "Last updated: `r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    theme: yeti
+    toc: yes
+    toc_float: true
+---
+
+# **Basic layout**
+
+### When you first open RStudio, you will be greeted by three panels:
+
+- The interactive R console (entire left)
+- Environment/History (tabbed in upper right)
+- Files/Plots/Packages/Help/Viewer (tabbed in lower right)
+
+<center>
+
+![](https://ucsbcarpentry.github.io/2021-08-16-ucsb-introR-online/fig/01-rstudio.png)
+
+</center>
+
+### Once you open files, such as R scripts, an editor panel will also open in the top left.
+
+<center>
+
+![](https://ucsbcarpentry.github.io/2021-08-16-ucsb-introR-online/fig/01-rstudio-script.png)
+
+</center>
+
+# Workflow within RStudio
+
+There are two main ways one can work within RStudio.
+
+1. Test and play within the interactive R console then copy code into a .R file to run later. (This is a real labor.... and I do NOT recommend it!)
+2. Start writing in an .R file and use RStudio’s shortcut keys for the Run command to push the current line, selected lines or modified lines to the interactive R console. (This is a great way to use R/RStudio cause all of your code is saved & you'll be able to run the file later on!)
+
+# Let's get to know the R interactive console
+
+(We will be typing everything below directly into the R console, but I have included them as code chunks for KEY purposes!)
+
+### Use R as a calculator
+
+Remember, order of operations matters--the order is the same as you would have learned back in school:
+
+From highest to lowest precedence:
+
+- Parentheses: `(`, `)`
+- Exponents: `^` or `**`
+- Divide: `/`
+- Multiply: `*`
+- Add: `+`
+- Subtract: `-`
+
+```{r}
+1 + 100
+
+3 + 5 * 2
+
+(3 + 5) * 2 # text after each code line is called a "comment"; R ignores anything that follows the # mark
+
+2/10000 # shorthand for “multiplied by 10^XX”. So 2e-4 is shorthand for 2 * 10^(-4).
+
+# 1 +
+```
+
+Any time you hit return and the R session shows a “+” instead of a “>”, it means it’s waiting for you to complete the command. If you want to cancel a command you can simply hit “`Esc`” or "`Ctrl`"+"`C`" and RStudio will give you back the “>” prompt.
+
+### Use R to compare things
+```{r}
+1 == 1  # equality (note two equals signs, read as "is equal to")
+
+1 != 2  # inequality (read as "is not equal to")
+
+1 < 2  # less than
+
+1 <= 1  # less than or equal to
+```
+
+### Use R to assign variables
+```{r}
+x <- 1/40
+x
+
+x <- 1/40 # variables can easily be re-assigned/over-written
+y <- x * 2
+```
+
+Variable names can contain letters, numbers, underscores and periods. They CANNOT start with a number OR contain spaces (**at all**). A few different conventions for longer variable names:
+
+- periods.between.words
+- underscores_between_words
+- camelCaseToSeparateWords
+
+Your choice of convention is up to , *JUST BE CONSISTENT*.
+
+# Installing packages
+
+Collections of R code that make our lives easier--for example, code developed to wrangle data--are known as *R packages*. These packages are not automatically downloaded when we download R, and must be installed. Either through the GUI interface (Tools --> Install Packages), or in-line in the console using `install.packages()`.
+
+```{r}
+# install.packages("dplyr")
+```
+
+Once we've downloaded a package, we can use it! R doesn't keep all packages in its working memory, however--it would slow R down to a snail's pace. Instead, we need to "load" the package(s) we are itnerested in using into our R session. We have to load these package(s) into our R session *each time we open R (or RStudio)*.
+
+```{r}
+library(dplyr)
+```
+
