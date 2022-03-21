@@ -159,7 +159,7 @@ class('banana')
 class(factor('banana'))
 ```
 
-No matter how complicated our analyses, or data become, R will always interpret te data as a specific data class. This strict interpretation has important implications. For instance, R insists that everything in a column be the same class; if it can't understand *everything* in a column as numeric, then *nothing* in that column gets to be numeric.
+No matter how complicated our analyses, or data become, R will always interpret the data as a specific data class. This strict interpretation has important implications. For instance, R insists that everything in a column be the same class; if it can't understand *everything* in a column as numeric, then *nothing* in that column gets to be numeric.
 
 # Vectors and Type Coercion
 
@@ -504,7 +504,7 @@ str(gapminder)
 gapminder %>% group_by(continent) %>% str()
 ```
 
-The data is no in a grouped_df, not the same as the data.frame we originally saw. The grouped_df is essentially a list where each item in the list is its own dataframe which only contains the rows that correspond to a particular value of continent.
+The data is now in a grouped_df, not the same as the data.frame we originally saw. The grouped_df is essentially a list where each item in the list is its own dataframe which only contains the rows that correspond to a particular value of continent.
 
 Using `group_by()` can seem pretty uneventful... that's because `group_by()` simply holds onto the data, you have to pass other functions to it in order to really see its power. We'll use `summarise()` which allows us to create new variables by using functions that repeat for each of the grouped datasets.
 
