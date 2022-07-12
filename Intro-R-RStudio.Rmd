@@ -37,10 +37,10 @@ output:
 
 There are two main ways one can work within RStudio.
 
-1. Test and play within the interactive R console then copy code into a .R file to run later. (This is a real labor.... and I do NOT recommend it!)
-2. Start writing in an .R file and use RStudio’s shortcut keys for the Run command to push the current line, selected lines or modified lines to the interactive R console. (This is a great way to use R/RStudio cause all of your code is saved & you'll be able to run the file later on!)
+1. Test and play within the interactive R console then copy code into a .R file to run later. (I do NOT recommend using RStudio in this way.)
+2. Start writing in an .R file and use RStudio’s shortcut keys for the Run command to push the current line, selected lines, or modified lines to the interactive R console. (This is a great way to use R/RStudio because all of your code is saved and you will be able to run the file later on.)
 
-# Let's get to know the R interactive console
+# The R interactive console
 
 (We will be typing everything below directly into the R console, but I have included them as code chunks for KEY purposes!)
 
@@ -107,7 +107,7 @@ Collections of R code that make our lives easier--for example, code developed to
 # install.packages("dplyr")
 ```
 
-Once we've downloaded a package, we can use it! R doesn't keep all packages in its working memory, however--it would slow R down to a snail's pace. Instead, we need to "load" the package(s) we are interested in using into our R session. We have to load these package(s) into our R session *each time we open R (or RStudio)*.
+Once we've downloaded a package, we can use it. R does not keep all packages in its working memory, however--that would slow R down. Instead, we need to "load" the package(s) we are interested in using into our R session. We must load these package(s) into our R session *each time we open R (or RStudio)*.
 
 ```{r}
 library(dplyr)
@@ -115,17 +115,7 @@ library(dplyr)
 
 # Project Management with RStudio
 
-I don't know about y'all, but many of my projects have looked a bit like this:
-
-<center>
-
-![](https://ucsbcarpentry.github.io/2021-08-16-ucsb-introR-online/fig/bad_layout.png)
-
-</center>
-
-.... with multiple iterations of graphs, manuscripts, and tables, all labeled with the date I completed them. This kind of organization is.... MESSY.
-
-Luckily for us, RStudio's project management functionality is INTUITIVE and POWERFUL.
+RStudio's project management functionality is INTUITIVE and POWERFUL.
 
 ### We’re going to create a new project in RStudio:
 
@@ -135,7 +125,7 @@ Luckily for us, RStudio's project management functionality is INTUITIVE and POWE
 4. Type in “r-intro” as the name of the directory.
 5. Click the “Create Project” button.
 
-Every time you open this project our working directory will always be set to the folder `r-intro`!
+Every time you open this project our working directory will always be set to the folder `r-intro`.
 
 ```{r}
 #getwd()
@@ -159,11 +149,11 @@ class('banana')
 class(factor('banana'))
 ```
 
-No matter how complicated our analyses, or data become, R will always interpret the data as a specific data class. This strict interpretation has important implications. For instance, R insists that everything in a column be the same class; if it can't understand *everything* in a column as numeric, then *nothing* in that column gets to be numeric.
+No matter how complicated our analyses, or data become, R will always interpret the data as a specific data class. This strict interpretation has important implications. For instance, R insists that everything in a column be the same class; if it cannot understand *everything* in a column as numeric, then *nothing* in that column will be numeric.
 
 # Vectors and Type Coercion
 
-Before we load in our first .csv, let's meet a different data structure: the vector. A vector in R is essentially an ordered list of things, of the same basic data type. If you don’t choose the data type, it’ll default to logical; or, you can declare an empty vector of whatever type you like. You can also make vectors with explicit contents using the combine function `c()`.
+Before we load in our first .csv, let's meet a different data structure: the vector. A vector in R is essentially an ordered list of things, of the same basic data type. If you don’t choose the data type, it will default to logical; or, you can declare an empty vector of whatever type you like. You can also make vectors with explicit contents using the combine function `c()`.
 
 ```{r}
 my_vector <- vector(length = 3)
@@ -211,7 +201,7 @@ class(categories)
 
 # Exploring Data Frames
 
-So... what is a dataframe? Think of it like a big ole excel sheet, but housed in R in a very specific way: Where all columns must be of the same type (think... vectors). Dataframes can be massive (think thousands of columns of genetic data), or relatively small, think a dozen columns of information relevant to your research study. Today we are going to work with an R dataset called `gapminder`.
+So... what is a dataframe? Think of it like an excel spreadsheet, but housed in R in a very specific way: Where all columns must be of the same type (think... vectors). Dataframes can be massive (think thousands of columns of genetic data), or relatively small, think a dozen columns of information relevant to a research study. Today we are going to work with an R dataset called `gapminder`.
 
 ```{r}
 download.file("https://raw.githubusercontent.com/datacarpentry/r-intro-geospatial/master/_episodes_rmd/data/gapminder_data.csv",
@@ -219,7 +209,7 @@ download.file("https://raw.githubusercontent.com/datacarpentry/r-intro-geospatia
 gapminder <- read.csv("data/gapminder_data.csv")
 ```
 
-Let's check out the data! Data exploration is one of the most important parts of working in R--and it's the first thing you should always do when looking at new data!
+Let's check out the data. Data exploration is one of the most important parts of working in R--and it is the first thing you should always do when looking at new data.
 ```{r}
 str(gapminder) # str() shows us the structure of the data, including the data type, the dimensions of the dataframe, and a few observations
 
@@ -289,7 +279,7 @@ tail(gapminder_norway)
 
 Why did R give us a warning? Well.. we need to talk a bit more about factors....
 
-In a factor, each different value represents what is called a **level**. In our case, the factor “continent” has 5 levels: “Africa”, “Americas”, “Asia”, “Europe” and “Oceania”. R will only accept values that match one of the levels. If you add a new value, it will become NA.
+In a factor, each unique value represents what is called a **level**. In our case, the factor “continent” has 5 levels: “Africa”, “Americas”, “Asia”, “Europe” and “Oceania”. R will only accept values that match one of these levels. If you add a new value, it will coerce the data unknown NEW level to "`NA`".
 
 The warning is telling us that we unsuccessfully added “Nordic” to our continent factor, but 2016 (a numeric), 5000000 (a numeric), 80.3 (a numeric), 49400.0 (a numeric) and FALSE (a logical) were successfully added to country, year, pop, lifeExp, gdpPercap and below_average respectively, since those variables are not factors. ‘Norway’ was also successfully added since it corresponds to an existing level. To successfully add a gapminder row with a “Nordic” continent, add “Nordic” as a level of the factor:
 
@@ -392,7 +382,7 @@ x[names(x) == "a"]
 
 # Subsetting Dataframes
 
-Remember the data frames are lists underneath the hood, so similar rules apply. However, they are also two dimensional objects:
+Remember the columns in data frames are lists, so similar rules apply. However, they are also two dimensional objects:
 
 `[` with one argument will act the same way as for lists, where each list element corresponds to a column. The resulting object will be a data frame:
 
@@ -449,7 +439,7 @@ mean(gapminder[gapminder$continent == "Asia", "gdpPercap"])
 
 But this isn’t very efficient, and can become tedious quickly because there is a fair bit of repetition. Repeating yourself will cost you time, both now and later, and potentially introduce some nasty bugs.
 
-Luckily, the dplyr package provides a number of very useful functions for manipulating dataframes in a way that will reduce the above repetition, reduce the probability of making errors, and probably even save you some typing. As an added bonus, you might even find the dplyr grammar easier to read.
+Luckily, the dplyr package provides a number of very useful functions for manipulating dataframes in a way that will reduce the above repetition, while reducing the probability of making errors. As an added bonus, you might even find the dplyr grammar easier to read.
 
 Here we’re going to cover 6 of the most commonly used functions as well as using pipes (%>%) to combine them.
 
@@ -469,22 +459,22 @@ What if we only wanted a few of the variables in our dataframe? This is where `s
 year_country_gdp <- select(gapminder, year, country, gdpPercap)
 ```
 
-the strengths of dplyr lie in combining several functions using pipes. Since the pipes grammar is unlike anything we’ve seen in R before, let’s repeat what we’ve done above using pipes.
+the strengths of dplyr lie in combining several functions using pipes. Since the pipes grammar is unlike anything we’ve seen in R before, let’s repeat what we’ve done above using pipes:
 
 ```{r}
 year_country_gdp <- gapminder %>% select(year,country,gdpPercap)
 ```
 
-First we summon the gapminder data frame and pass it on, using the pipe symbol %>%, to the next step, which is the `select()` function. In this case we don’t specify which data object we use in the `select()` function since in gets that from the previous pipe. Fun Fact: You may have encountered pipes before in the shell. In R, a pipe symbol is %>% while in the shell it is | but the concept is the same!
+First we summon the gapminder data frame and pass it on, using the pipe symbol %>%, to the next step, which is the `select()` function. In this case we don’t specify which data object we use in the `select()` function since it gets that information from the previous pipe. Fun Fact: You may have encountered pipes before in the shell. In R, a pipe symbol is %>% while in the shell it is | but the concept is the same.
 
-What if we are interested in only European countries, and those three variables; this is where 'filter' comes in!
+What if we are interested in only European countries, and those three variables; this is where `filter` comes in!
 ```{r}
 year_country_gdp_euro <- gapminder %>%
   filter(continent == "Europe") %>%
   select(year, country, gdpPercap)
 ```
 
-#### Challenge: Write a single command (which can span multiple lines and includes pipes) that will produce a dataframe that has the African values for lifeExp, country and year, but not for other Continents. How many rows does your dataframe have and why?
+#### Challenge: Write a single command (which can span multiple lines and includes pipes) that will produce a dataframe that has the African values for lifeExp, country and year, but not for other continents. How many rows does your dataframe have and why?
 
 ```{r}
 year_country_lifeExp_Africa <- gapminder %>%
@@ -494,7 +484,7 @@ year_country_lifeExp_Africa <- gapminder %>%
 
 The order of operations is very important in this case. If we used `select` first, filter would not be able to find the variable continent since we would have removed it in the previous step.
 
-The power of dplyr is that you don't have to do repetetive tasks that might produce bugs in your code; thus far we haven't been using this functionality... we would have to make a new dataframe for each country... this is where `group_by()` steps in!
+The power of dplyr is that you don't have to do repetitive tasks that might produce bugs in your code; thus far we haven not been using this functionality... we would have to make a new dataframe for each country... this is where `group_by()` steps in!
 
 ```{r}
 # let's first look at the structure of gapminger
@@ -504,9 +494,9 @@ str(gapminder)
 gapminder %>% group_by(continent) %>% str()
 ```
 
-The data is now in a grouped_df, not the same as the data.frame we originally saw. The grouped_df is essentially a list where each item in the list is its own dataframe which only contains the rows that correspond to a particular value of continent.
+The data is now in a grouped_df, not the same as the data.frame we originally saw. The grouped_df is essentially a list where each item in the list is its own dataframe that only contains the rows that correspond to a particular value of continent.
 
-Using `group_by()` can seem pretty uneventful... that's because `group_by()` simply holds onto the data, you have to pass other functions to it in order to really see its power. We'll use `summarise()` which allows us to create new variables by using functions that repeat for each of the grouped datasets.
+Using `group_by()` in this way can seem pretty uneventful... that is because `group_by()` simply holds onto the data. You must pass other functions to it in order to really see its power. We'll use `summarise()` which allows us to create new variables by using functions that repeat for each of the grouped datasets.
 
 ```{r}
 gdp_bycontinents <- gapminder %>%
@@ -549,7 +539,7 @@ gapminder %>%
 
 ```
 
-You can also chain together several summary operations; in this case calculating the minimum, maximum, mean and se of each continent’s per-country life-expectancy:
+You can also chain together several summary operations; in this case calculating the minimum, maximum, mean and standard error of each continent’s per-country life-expectancy:
 
 ```{r}
 gapminder %>%
@@ -576,7 +566,7 @@ gdp_sum <- gapminder %>%
 
 # Data Writing/Saving
 
-One of the key elements of "good" data practices is NEVER to over-write raw data. Raw-data is sacred, and needs to exist in your project in its OG format. Manipulated data is important to save as well. You might place these data in folders called `analysis-data` or `data-out`; regardless of what you call this folder, you will always save manipulated data to this folder!
+One of the key elements of "good" data practices is NEVER to over-write raw data. Raw-data is sacred, and needs to exist in your project in its original format. Manipulated data is important to save as well. You might place these data in folders called `analysis-data` or `data-out`; regardless of what you call this folder, you will always save manipulated data to this folder!
 
 ```{r}
 write.csv(gdp_sum, "./data/data-out/gdp-summary-stats.csv")

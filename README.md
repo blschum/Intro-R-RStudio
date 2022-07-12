@@ -1,2 +1,2 @@
 # Intro-R-RStudio
-This workshop will build attendees knowledge about R &amp; RStudio from the ground up.
+This workshop will build attendees knowledge about R and RStudio from the ground up.
