@@ -1,5 +1,5 @@
 ---
-title: "Intro-R-Rstudio"
+title: "1. Introduction to R and Rstudio"
 author: "Britta Schumacher"
 date: "Last updated: `r format(Sys.time(), '%d %B, %Y')`"
 output: 
@@ -113,6 +113,10 @@ Once we've downloaded a package, we can use it. R does not keep all packages in 
 library(dplyr)
 ```
 
+You'll notice that when we call `dplyr` into our environment, R spits out some information: a soft warning, saying that this package was built under a different version of R; that R is attaching the `dplyr` package; and that a few objects are masked from different packages. These masked objects are functions that conflict with functions built into `dplyr`. 
+
+*Remember* : to call a function from a particular package, we use the `::` (e.g., dplyr::filter).
+
 # Project Management with RStudio
 
 RStudio's project management functionality is INTUITIVE and POWERFUL.
@@ -204,8 +208,10 @@ class(categories)
 So... what is a dataframe? Think of it like an excel spreadsheet, but housed in R in a very specific way: Where all columns must be of the same type (think... vectors). Dataframes can be massive (think thousands of columns of genetic data), or relatively small, think a dozen columns of information relevant to a research study. Today we are going to work with an R dataset called `gapminder`.
 
 ```{r}
+# We can either download the `gapminder` dataset off github, or:
 download.file("https://raw.githubusercontent.com/datacarpentry/r-intro-geospatial/master/_episodes_rmd/data/gapminder_data.csv",
               destfile = "data/gapminder_data.csv")
+# We can pull n the data from our data folder
 gapminder <- read.csv("data/gapminder_data.csv")
 ```
 
@@ -252,7 +258,7 @@ head(gapminder)
 # we definitely don't want to print the entire dataframe each time, so let's put our cbind() command within a call to head() so we only see the first six lines
 head(cbind(gapminder, below_average))
 
-# note that if we try to add a vector of below_average with a different number of entries than the number of rows in our dataframe, it woudl fail:
+# note that if we try to add a vector of below_average with a different number of entries than the number of rows in our dataframe, it would fail:
 #below_average <- c(TRUE, TRUE, TRUE, TRUE, TRUE)
 #head(cbind(gapminder, below_average))
 
@@ -279,7 +285,7 @@ tail(gapminder_norway)
 
 Why did R give us a warning? Well.. we need to talk a bit more about factors....
 
-In a factor, each unique value represents what is called a **level**. In our case, the factor “continent” has 5 levels: “Africa”, “Americas”, “Asia”, “Europe” and “Oceania”. R will only accept values that match one of these levels. If you add a new value, it will coerce the data unknown NEW level to "`NA`".
+In a factor, each unique value represents what is called a **level**. In our case, the factor “continent” has 5 levels: “Africa”, “Americas”, “Asia”, “Europe” and “Oceania”. R will only accept values that match one of these levels. If you add a new value, it will coerce the unknown NEW level to "`NA`".
 
 The warning is telling us that we unsuccessfully added “Nordic” to our continent factor, but 2016 (a numeric), 5000000 (a numeric), 80.3 (a numeric), 49400.0 (a numeric) and FALSE (a logical) were successfully added to country, year, pop, lifeExp, gdpPercap and below_average respectively, since those variables are not factors. ‘Norway’ was also successfully added since it corresponds to an existing level. To successfully add a gapminder row with a “Nordic” continent, add “Nordic” as a level of the factor:
 
@@ -439,7 +445,7 @@ mean(gapminder[gapminder$continent == "Asia", "gdpPercap"])
 
 But this isn’t very efficient, and can become tedious quickly because there is a fair bit of repetition. Repeating yourself will cost you time, both now and later, and potentially introduce some nasty bugs.
 
-Luckily, the dplyr package provides a number of very useful functions for manipulating dataframes in a way that will reduce the above repetition, while reducing the probability of making errors. As an added bonus, you might even find the dplyr grammar easier to read.
+Luckily, the `dplyr` package provides a number of very useful functions for manipulating dataframes in a way that will reduce the above repetition, while reducing the probability of making errors. As an added bonus, you might even find the `dplyr` grammar easier to read.
 
 Here we’re going to cover 6 of the most commonly used functions as well as using pipes (%>%) to combine them.
 
@@ -459,10 +465,11 @@ What if we only wanted a few of the variables in our dataframe? This is where `s
 year_country_gdp <- select(gapminder, year, country, gdpPercap)
 ```
 
-the strengths of dplyr lie in combining several functions using pipes. Since the pipes grammar is unlike anything we’ve seen in R before, let’s repeat what we’ve done above using pipes:
+The strengths of `dplyr` lie in combining several functions using pipes. Since the pipes grammar is unlike anything we’ve seen in R before, let’s repeat what we’ve done above using pipes:
 
 ```{r}
-year_country_gdp <- gapminder %>% select(year,country,gdpPercap)
+year_country_gdp <- gapminder %>% 
+  select(year,country,gdpPercap)
 ```
 
 First we summon the gapminder data frame and pass it on, using the pipe symbol %>%, to the next step, which is the `select()` function. In this case we don’t specify which data object we use in the `select()` function since it gets that information from the previous pipe. Fun Fact: You may have encountered pipes before in the shell. In R, a pipe symbol is %>% while in the shell it is | but the concept is the same.
@@ -562,9 +569,11 @@ gdp_sum <- gapminder %>%
             sd_pop = sd(pop),
             mean_gdp_billion = mean(gdp_billion),
             sd_gdp_billion = sd(gdp_billion))
+
+head(gdp_sum)
 ```
 
-# Data Writing/Saving
+# Last Step!! Data Writing/Saving
 
 One of the key elements of "good" data practices is NEVER to over-write raw data. Raw-data is sacred, and needs to exist in your project in its original format. Manipulated data is important to save as well. You might place these data in folders called `analysis-data` or `data-out`; regardless of what you call this folder, you will always save manipulated data to this folder!
 

@@ -12,7 +12,7 @@
 <meta name="author" content="Britta Schumacher" />
 
 
-<title>Intro-R-Rstudio</title>
+<title>1. Introduction to R and Rstudio</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1546,9 +1546,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Intro-R-Rstudio</h1>
+<h1 class="title toc-ignore">1. Introduction to R and Rstudio</h1>
 <h4 class="author">Britta Schumacher</h4>
-<h4 class="date">Last updated: 12 July, 2022</h4>
+<h4 class="date">Last updated: 10 August, 2022</h4>
 
 </div>
 
@@ -1678,6 +1678,14 @@ we open R (or RStudio)</em>.</p>
 <pre><code>## The following objects are masked from &#39;package:base&#39;:
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
+<p>You’ll notice that when we call <code>dplyr</code> into our
+environment, R spits out some information: a soft warning, saying that
+this package was built under a different version of R; that R is
+attaching the <code>dplyr</code> package; and that a few objects are
+masked from different packages. These masked objects are functions that
+conflict with functions built into <code>dplyr</code>.</p>
+<p><em>Remember</em> : to call a function from a particular package, we
+use the <code>::</code> (e.g., dplyr::filter).</p>
 </div>
 <div id="project-management-with-rstudio" class="section level1">
 <h1>Project Management with RStudio</h1>
@@ -1781,8 +1789,10 @@ same type (think… vectors). Dataframes can be massive (think thousands
 of columns of genetic data), or relatively small, think a dozen columns
 of information relevant to a research study. Today we are going to work
 with an R dataset called <code>gapminder</code>.</p>
-<pre class="r"><code>download.file(&quot;https://raw.githubusercontent.com/datacarpentry/r-intro-geospatial/master/_episodes_rmd/data/gapminder_data.csv&quot;,
+<pre class="r"><code># We can either download the `gapminder` dataset off github, or:
+download.file(&quot;https://raw.githubusercontent.com/datacarpentry/r-intro-geospatial/master/_episodes_rmd/data/gapminder_data.csv&quot;,
               destfile = &quot;data/gapminder_data.csv&quot;)
+# We can pull n the data from our data folder
 gapminder &lt;- read.csv(&quot;data/gapminder_data.csv&quot;)</code></pre>
 <p>Let’s check out the data. Data exploration is one of the most
 important parts of working in R–and it is the first thing you should
@@ -1853,7 +1863,7 @@ head(cbind(gapminder, below_average))</code></pre>
 ## 4 Afghanistan 1967 11537966      Asia  34.020  836.1971          TRUE
 ## 5 Afghanistan 1972 13079460      Asia  36.088  739.9811          TRUE
 ## 6 Afghanistan 1977 14880372      Asia  38.438  786.1134          TRUE</code></pre>
-<pre class="r"><code># note that if we try to add a vector of below_average with a different number of entries than the number of rows in our dataframe, it woudl fail:
+<pre class="r"><code># note that if we try to add a vector of below_average with a different number of entries than the number of rows in our dataframe, it would fail:
 #below_average &lt;- c(TRUE, TRUE, TRUE, TRUE, TRUE)
 #head(cbind(gapminder, below_average))
 
@@ -1895,8 +1905,7 @@ factors….</p>
 <strong>level</strong>. In our case, the factor “continent” has 5
 levels: “Africa”, “Americas”, “Asia”, “Europe” and “Oceania”. R will
 only accept values that match one of these levels. If you add a new
-value, it will coerce the data unknown NEW level to
-“<code>NA</code>”.</p>
+value, it will coerce the unknown NEW level to “<code>NA</code>”.</p>
 <p>The warning is telling us that we unsuccessfully added “Nordic” to
 our continent factor, but 2016 (a numeric), 5000000 (a numeric), 80.3 (a
 numeric), 49400.0 (a numeric) and FALSE (a logical) were successfully
@@ -2116,10 +2125,11 @@ operations:</p>
 <p>But this isn’t very efficient, and can become tedious quickly because
 there is a fair bit of repetition. Repeating yourself will cost you
 time, both now and later, and potentially introduce some nasty bugs.</p>
-<p>Luckily, the dplyr package provides a number of very useful functions
-for manipulating dataframes in a way that will reduce the above
-repetition, while reducing the probability of making errors. As an added
-bonus, you might even find the dplyr grammar easier to read.</p>
+<p>Luckily, the <code>dplyr</code> package provides a number of very
+useful functions for manipulating dataframes in a way that will reduce
+the above repetition, while reducing the probability of making errors.
+As an added bonus, you might even find the <code>dplyr</code> grammar
+easier to read.</p>
 <p>Here we’re going to cover 6 of the most commonly used functions as
 well as using pipes (%&gt;%) to combine them.</p>
 <ul>
@@ -2133,10 +2143,11 @@ well as using pipes (%&gt;%) to combine them.</p>
 <p>What if we only wanted a few of the variables in our dataframe? This
 is where <code>select</code> comes in!</p>
 <pre class="r"><code>year_country_gdp &lt;- select(gapminder, year, country, gdpPercap)</code></pre>
-<p>the strengths of dplyr lie in combining several functions using
-pipes. Since the pipes grammar is unlike anything we’ve seen in R
-before, let’s repeat what we’ve done above using pipes:</p>
-<pre class="r"><code>year_country_gdp &lt;- gapminder %&gt;% select(year,country,gdpPercap)</code></pre>
+<p>The strengths of <code>dplyr</code> lie in combining several
+functions using pipes. Since the pipes grammar is unlike anything we’ve
+seen in R before, let’s repeat what we’ve done above using pipes:</p>
+<pre class="r"><code>year_country_gdp &lt;- gapminder %&gt;% 
+  select(year,country,gdpPercap)</code></pre>
 <p>First we summon the gapminder data frame and pass it on, using the
 pipe symbol %&gt;%, to the next step, which is the <code>select()</code>
 function. In this case we don’t specify which data object we use in the
@@ -2286,10 +2297,22 @@ information using mutate().</p>
             sd_gdp_billion = sd(gdp_billion))</code></pre>
 <pre><code>## `summarise()` has grouped output by &#39;continent&#39;. You can override using the
 ## `.groups` argument.</code></pre>
+<pre class="r"><code>head(gdp_sum)</code></pre>
+<pre><code>## # A tibble: 6 x 8
+## # Groups:   continent [1]
+##   continent  year mean_gdpPercap sd_gdpPercap mean_pop    sd_pop mean_~1 sd_gd~2
+##   &lt;chr&gt;     &lt;int&gt;          &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Africa     1952          1253.         983. 4570010.  6317450.    5.99    11.4
+## 2 Africa     1957          1385.        1135. 5093033.  7076042.    7.36    14.5
+## 3 Africa     1962          1598.        1462. 5702247.  7957545.    8.78    17.2
+## 4 Africa     1967          2050.        2848. 6447875.  8985505.   11.4     23.2
+## 5 Africa     1972          2340.        3287. 7305376. 10130833.   15.1     30.4
+## 6 Africa     1977          2586.        4142. 8328097. 11585184.   18.7     38.1
+## # ... with abbreviated variable names 1: mean_gdp_billion, 2: sd_gdp_billion</code></pre>
 </div>
 </div>
-<div id="data-writingsaving" class="section level1">
-<h1>Data Writing/Saving</h1>
+<div id="last-step-data-writingsaving" class="section level1">
+<h1>Last Step!! Data Writing/Saving</h1>
 <p>One of the key elements of “good” data practices is NEVER to
 over-write raw data. Raw-data is sacred, and needs to exist in your
 project in its original format. Manipulated data is important to save as
